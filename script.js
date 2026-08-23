@@ -33,6 +33,12 @@ const products = [
 let cart = JSON.parse(localStorage.getItem('luxestore_cart')) || [];
 let currentCategory = 'all';
 
+// Безопасная обработка ошибок загрузки изображений (защита от бесконечного цикла)
+function handleImageError(img) {
+  img.onerror = null;
+  img.src = 'images/no-image.png';
+}
+
 function saveCart() {
   localStorage.setItem('luxestore_cart', JSON.stringify(cart));
 }
@@ -46,7 +52,6 @@ function getCategoryLabel(category) {
   }
 }
 
-// Показ красивых уведомлений (Toast)
 function showToast(message, type = 'info') {
   const container = document.getElementById('toastContainer');
   if (!container) return;
@@ -76,13 +81,12 @@ function renderProducts(items) {
     const card = document.createElement("div");
     card.className = "product-card";
     
-    // Если картинка не задана, показываем заглушку
     const imageSrc = product.image ? product.image : 'images/no-image.png';
 
     card.innerHTML = `
       <div class="card-inner">
         <div class="card-front">
-          <img src="${imageSrc}" alt="${product.name}" class="product-image" onerror="this.src='images/no-image.png'">
+          <img src="${imageSrc}" alt="${product.name}" class="product-image" onerror="handleImageError(this)">
           <div>
             <div class="product-category">${getCategoryLabel(product.category)}</div>
             <h3 class="product-title">${product.name}</h3>
@@ -201,7 +205,7 @@ function updateCartUI() {
       const imageSrc = item.image ? item.image : 'images/no-image.png';
       return `
         <div class="cart-page-item">
-          <img src="${imageSrc}" alt="${item.name}" class="cart-item-img" onerror="this.src='images/no-image.png'">
+          <img src="${imageSrc}" alt="${item.name}" class="cart-item-img" onerror="handleImageError(this)">
           <div class="cart-page-item-info">
             <h4>${item.name}</h4>
             <span>${(item.price * item.quantity).toLocaleString('ru-RU')} ₽</span>
@@ -217,7 +221,6 @@ function updateCartUI() {
   }
 }
 
-// МОДАЛЬНОЕ ОКНО ТОВАРА
 function openProductModal(productId, event) {
   if (event) event.stopPropagation();
   const product = products.find(p => p.id === productId);
@@ -229,7 +232,7 @@ function openProductModal(productId, event) {
 
   modalBody.innerHTML = `
     <div class="modal-grid">
-      <img src="${imageSrc}" alt="${product.name}" class="modal-img" onerror="this.src='images/no-image.png'">
+      <img src="${imageSrc}" alt="${product.name}" class="modal-img" onerror="handleImageError(this)">
       <div class="modal-info">
         <span class="modal-category">${getCategoryLabel(product.category)}</span>
         <h2>${product.name}</h2>
@@ -255,7 +258,6 @@ window.onclick = function(event) {
   }
 };
 
-// МАСКА ДЛЯ ПОЛЯ ВВОДА ТЕЛЕФОНА
 function initPhoneMask() {
   const phoneInput = document.getElementById('userPhone');
   if (!phoneInput) return;
@@ -276,7 +278,6 @@ function initPhoneMask() {
   });
 }
 
-// ОТПРАВКА ЗАКАЗА В TELEGRAM
 async function sendOrderToTelegram(event) {
   event.preventDefault();
 
