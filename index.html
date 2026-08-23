@@ -3,48 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>55 LUXESTORE — Премиальные часы и сумки</title>
+  <title>55 LUXESTORE</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- ХЕДЕР И ШАПКА -->
   <header class="header">
-    <a href="#" class="logo">
-      <img src="images/logo.png" alt="55 LUXESTORE" class="site-logo">
-      <span class="brand-name">55 LUXESTORE</span>
-    </a>
-
-    <div class="cart-button">
-      🛒 Корзина (<span id="cart-count">0</span>)
+    <div class="logo">55 LUXESTORE</div>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
     </div>
   </header>
 
-  <section class="hero">
-    <h1>Премиальные аксессуары</h1>
-    <p>Наведите на карточку, чтобы узнать подробности</p>
-  </section>
+  <!-- ФИЛЬТР КАТЕГОРИЙ -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterCategory('all')">Все</button>
+    <button class="filter-btn" onclick="filterCategory('watches')">Часы</button>
+    <button class="filter-btn" onclick="filterCategory('bags')">Сумки</button>
+    <button class="filter-btn" onclick="filterCategory('sets')">Наборы</button>
+  </div>
 
+  <!-- КАТАЛОГ ТОВАРОВ -->
   <main class="container">
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCategory('all')">Все товары</button>
-      <button class="filter-btn" onclick="filterCategory('watches')">Часы</button>
-      <button class="filter-btn" onclick="filterCategory('bags')">Сумки</button>
-      <button class="filter-btn" onclick="filterCategory('sets')">Наборы</button>
-    </div>
-
-    <div class="products-grid" id="products-grid"></div>
-
-    <section class="info-section">
-      <div class="info-card">
-        <h3>📍 Самовывоз</h3>
-        <p>г. Москва (по предварительному бронированию)</p>
-      </div>
-      <div class="info-card">
-        <h3>🚚 Доставка</h3>
-        <p>Быстрая курьерская доставка по Москве и Московской области с примеркой</p>
-      </div>
-    </section>
+    <div id="products-grid" class="products-grid"></div>
   </main>
+
+  <!-- БОКОВАЯ КОРЗИНА -->
+  <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h2>Корзина</h2>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items">
+      <p class="empty-cart-msg">Корзина пока пуста</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Итого:</span>
+        <strong id="cartTotal">0 ₽</strong>
+      </div>
+      <button id="checkoutBtn" class="checkout-btn" onclick="openCheckoutModal()" disabled>
+        Перейти к оформлению
+      </button>
+    </div>
+  </aside>
+
+  <!-- МОДАЛЬНОЕ ОКНО ОФОРМЛЕНИЯ ЗАКАЗА -->
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeCheckoutModal()">✕</span>
+      <h2>Оформление заказа</h2>
+      <form id="checkoutForm" onsubmit="sendOrderToTelegram(event)">
+        <div class="form-group">
+          <label for="userName">Ваше имя *</label>
+          <input type="text" id="userName" required placeholder="Иван">
+        </div>
+        <div class="form-group">
+          <label for="userPhone">Номер телефона *</label>
+          <input type="tel" id="userPhone" required placeholder="+7 (999) 000-00-00">
+        </div>
+        <div class="form-group">
+          <label for="userAddress">Адрес / Самовывоз *</label>
+          <input type="text" id="userAddress" required placeholder="г. Москва, ул. Пушкина...">
+        </div>
+        <div class="form-group">
+          <label for="userComment">Комментарий к заказу</label>
+          <textarea id="userComment" rows="3" placeholder="Дополнительные пожелания..."></textarea>
+        </div>
+        <button type="submit" id="submitBtn" class="submit-order-btn">Отправить заказ</button>
+      </form>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
