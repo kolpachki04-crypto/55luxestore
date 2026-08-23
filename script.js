@@ -1,5 +1,5 @@
 // НАСТРОЙКИ TELEGRAM-БОТА
-const TELEGRAM_BOT_TOKEN = "8853782545:AAFhTGz7sDzEHLhP81BM8pQNCWehvYm1JF4";
+const TELEGRAM_BOT_TOKEN = "ВАШ_НОВЫЙ_ТОКЕН";
 const TELEGRAM_CHAT_ID = "1292647343";
 
 const products = [
@@ -33,7 +33,6 @@ const products = [
 let cart = JSON.parse(localStorage.getItem('luxestore_cart')) || [];
 let currentCategory = 'all';
 
-// Безопасная обработка ошибок загрузки изображений (защита от бесконечного цикла)
 function handleImageError(img) {
   img.onerror = null;
   img.src = 'images/no-image.png';
@@ -228,6 +227,8 @@ function openProductModal(productId, event) {
 
   const modal = document.getElementById('productModal');
   const modalBody = document.getElementById('modalBody');
+  if (!modal || !modalBody) return;
+
   const imageSrc = product.image ? product.image : 'images/no-image.png';
 
   modalBody.innerHTML = `
@@ -253,7 +254,7 @@ function closeProductModal() {
 
 window.onclick = function(event) {
   const modal = document.getElementById('productModal');
-  if (event.target === modal) {
+  if (event && event.target === modal) {
     closeProductModal();
   }
 };
@@ -293,8 +294,10 @@ async function sendOrderToTelegram(event) {
   }
 
   const submitBtn = document.getElementById('submitBtn');
-  submitBtn.disabled = true;
-  submitBtn.innerText = 'Отправка...';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Отправка...';
+  }
 
   const name = document.getElementById('userName').value;
   const phone = phoneInput.value;
@@ -338,13 +341,19 @@ async function sendOrderToTelegram(event) {
   } catch (error) {
     showToast('Ошибка соединения с сервером.', 'error');
   } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerText = 'Подтвердить заказ';
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Подтвердить заказ';
+    }
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts(products);
+  // Вызываем функцию отрисовки каталога только если элемент сетки существует
+  if (document.getElementById("productGrid")) {
+    renderProducts(products);
+  }
+  
   updateCartUI();
   initPhoneMask();
 });
