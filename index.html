@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>55 LUXESTORE — Премиальные часы и сумки</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="#" class="logo">
+      <img src="images/logo.png" alt="55 LUXESTORE" class="site-logo">
+      <span class="brand-name">55 LUXESTORE</span>
+    </a>
+
+    <div class="cart-button">
+      🛒 Корзина (<span id="cart-count">0</span>)
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Премиальные аксессуары</h1>
+    <p>Наведите на карточку, чтобы узнать подробности</p>
+  </section>
+
+  <main class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCategory('all')">Все товары</button>
+      <button class="filter-btn" onclick="filterCategory('watches')">Часы</button>
+      <button class="filter-btn" onclick="filterCategory('bags')">Сумки</button>
+      <button class="filter-btn" onclick="filterCategory('sets')">Наборы</button>
+    </div>
+
+    <div class="products-grid" id="products-grid"></div>
+
+    <section class="info-section">
+      <div class="info-card">
+        <h3>📍 Самовывоз</h3>
+        <p>г. Москва (по предварительному бронированию)</p>
+      </div>
+      <div class="info-card">
+        <h3>🚚 Доставка</h3>
+        <p>Быстрая курьерская доставка по Москве и Московской области с примеркой</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
