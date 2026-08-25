@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- Хедер сайта -->
   <header class="header">
     <a href="index.html" class="logo">
       <span class="brand-name">55 LUXESTORE</span>
@@ -22,7 +21,6 @@
   </header>
 
   <main class="container">
-    <!-- Фильтры и сортировка -->
     <div class="controls-bar">
       <nav class="categories">
         <button class="category-btn filter-btn active" onclick="filterCategory('all', event)">Все</button>
@@ -40,23 +38,16 @@
       </div>
     </div>
 
-    <!-- Сетка с товарами -->
-    <div id="productGrid" class="products-grid">
-      <!-- Товары динамически загружаются из script.js -->
-    </div>
+    <div id="productGrid" class="products-grid"></div>
   </main>
 
-  <!-- Модальное окно просмотра товара -->
   <div id="productModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeProductModal()">&times;</span>
-      <div class="modal-body" id="modalBody">
-        <!-- Контент загружается через JS -->
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
-  <!-- Контейнер для toast-уведомлений -->
   <div id="toastContainer" class="toast-container"></div>
 
   <script src="script.js"></script>
