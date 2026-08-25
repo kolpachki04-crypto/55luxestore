@@ -1,5 +1,5 @@
 // НАСТРОЙКИ TELEGRAM-БОТА
-const TELEGRAM_BOT_TOKEN = "ВАШ_ОБНОВЛЕННЫЙ_ТОКЕН";
+const TELEGRAM_BOT_TOKEN = "8853782545:AAFMVGtoAGeYBkX-cOg5AaxHdOJKO-x5tzQ";
 const TELEGRAM_CHAT_ID = "1292647343";
 
 const products = [
