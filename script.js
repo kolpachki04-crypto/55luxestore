@@ -1,5 +1,5 @@
 // НАСТРОЙКИ TELEGRAM-БОТА
-const TELEGRAM_BOT_TOKEN = "ВАШ_НОВЫЙ_ТОКЕН";
+const TELEGRAM_BOT_TOKEN = "ВАШ_ОБНОВЛЕННЫЙ_ТОКЕН";
 const TELEGRAM_CHAT_ID = "1292647343";
 
 const products = [
@@ -349,7 +349,6 @@ async function sendOrderToTelegram(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Вызываем функцию отрисовки каталога только если элемент сетки существует
   if (document.getElementById("productGrid")) {
     renderProducts(products);
   }
