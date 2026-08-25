@@ -328,7 +328,9 @@ async function sendOrderToTelegram(event) {
       })
     });
 
-    if (response.ok) {
+    const result = await response.json();
+
+    if (response.ok && result.ok) {
       showToast('Спасибо! Заказ оформлен.', 'success');
       cart = [];
       saveCart();
@@ -336,10 +338,12 @@ async function sendOrderToTelegram(event) {
         window.location.href = 'index.html';
       }, 1500);
     } else {
-      showToast('Ошибка при отправке заказа.', 'error');
+      console.error('Telegram API Error:', result);
+      showToast(`Ошибка: ${result.description || 'Не удалось отправить запрос'}`, 'error');
     }
   } catch (error) {
-    showToast('Ошибка соединения с сервером.', 'error');
+    console.error('Network Error:', error);
+    showToast('Ошибка сети или подключения к Telegram', 'error');
   } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
